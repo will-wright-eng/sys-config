@@ -21,7 +21,8 @@ poetry-remove:
 install:
 	poetry lock -n && poetry export --without-hashes > requirements.txt
 	poetry install -n
-	-poetry run mypy --install-types --non-interactive ./
+	poetry install -E dev -E test
+#	-poetry run mypy --install-types --non-interactive ./
 
 .PHONY: pre-commit-install
 pre-commit-install:
@@ -46,7 +47,7 @@ test:
 .PHONY: check-codestyle
 check-codestyle:
 	poetry run isort --diff --check-only --settings-path pyproject.toml ./
-	poetry run black --diff --check --config pyproject.toml ./
+# 	poetry run black --diff --check --config pyproject.toml ./
 	poetry run darglint --verbosity 2 sys_config tests
 
 .PHONY: mypy
