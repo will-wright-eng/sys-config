@@ -22,6 +22,6 @@
 ## TODO
 - setup sys-config
 
-## Implementation Examples
+## Usage Examples
 - [`media-mgmt-cli`]()
 - [`secret-mgmt-cli`]()
