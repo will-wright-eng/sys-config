@@ -15,13 +15,45 @@
 
 `sys-config` is a Python package created with [william-cass-wright/cookiecutter-pypackage-slim](https://github.com/william-cass-wright/cookiecutter-pypackage-slim)
 
+</div>
+
 ## Summary
 
 ## Usage
+implementation example within [media-mgmt-cli]:
 
-## TODO
+```python
+from .config import ConfigHandler
+
+
+class AwsStorageMgmt:
+    def __init__(self):
+        self.s3_resour = boto3.resource("s3")
+        self.s3_client = boto3.client("s3")
+        self.config = ConfigHandler(project_name="media_mgmt_cli")
+        if self.config.check_config_exists():
+            self.configs = self.config.get_configs()
+            self.bucket = self.configs.get("aws_bucket", None)
+            self.object_prefix = self.configs.get("aws_bucket_path", None)
+        else:
+            echo("config file does not exist, run `mmgmt configure`")
+
+    def upload_file(self, file_name, object_name=None):
+        """
+        ...
+        """
+        echo(
+            f"uploading: {file_name} \nto S3 bucket: {self.configs.get('aws_bucket')}/{self.configs.get('aws_bucket_path')}/{file_name}"
+        )
+        ...
+```
+
+## Future Work
 - setup sys-config
 
-## Implementation Examples
-- [`media-mgmt-cli`]()
-- [`secret-mgmt-cli`]()
+## Project Examples
+- [media-mgmt-cli]
+- [secret-mgmt-cli]
+
+[media-mgmt-cli]: https://github.com/william-cass-wright/media-mgmt-cli
+[secret-mgmt-cli]: https://github.com/william-cass-wright/secrets-mgmt-cli
