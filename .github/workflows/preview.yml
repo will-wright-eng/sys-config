@@ -10,15 +10,18 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+    inputs:
+      dispatch: true
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   publish_dev_build:
+    if: ${{ github.event.label.name == 'lint' || inputs.dispatch == true }}
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        python-versions: [ 3.9 ]
+        python-version: ["3.9", "3.10"]
 
     steps:
       - uses: actions/checkout@v3
