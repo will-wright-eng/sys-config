@@ -10,12 +10,17 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-    # inputs:
-    #   dispatch: true
+    inputs:
+      logLevel:
+        description: 'Log level'     
+        required: true
+        default: 'warning'
+      tags:
+        description: 'Test scenario tags'  
 
 jobs:
   build:
-    # if: ${{ github.event.label.name == 'build' && inputs.dispatch == true }}
+    # if: ${{ github.event.label.name == 'build' && github.event.inputs.tags == true }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -53,3 +58,9 @@ jobs:
     - name: Run safety checks
       run: |
         make check-safety
+  printInputs:
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        echo "Log level: ${{ github.event.inputs.logLevel }}"
+        echo "Tags: ${{ github.event.inputs.tags }}" 
