@@ -16,7 +16,8 @@ on:
         required: true
         default: 'warning'
       tags:
-        description: 'Test scenario tags'  
+        description: 'Test scenario tags'
+        run: true
 
 jobs:
   build:
