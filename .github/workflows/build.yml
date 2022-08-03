@@ -15,7 +15,7 @@ on:
 
 jobs:
   build:
-    if: ${{ github.event.label.name == 'build' || inputs.dispatch == true }}
+    if: ${{ github.event.label.name == 'build' && inputs.dispatch == true }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
