@@ -17,11 +17,10 @@ on:
         default: 'warning'
       tags:
         description: 'Test scenario tags'
-        run: true
 
 jobs:
   build:
-    # if: ${{ github.event.label.name == 'build' && github.event.inputs.tags == true }}
+    if: ${{ github.event.label.name == 'build' }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
