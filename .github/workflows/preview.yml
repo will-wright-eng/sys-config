@@ -16,7 +16,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   publish_dev_build:
-    if: ${{ github.event.label.name == 'lint' || inputs.dispatch == true }}
+    if: ${{ github.event.label.name == 'preview' || inputs.dispatch == true }}
     runs-on: ubuntu-latest
 
     strategy:
