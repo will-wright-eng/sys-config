@@ -13,7 +13,6 @@ on:
     inputs:
       dispatch: true
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build:
     if: ${{ github.event.label.name == 'build' || inputs.dispatch == true }}
