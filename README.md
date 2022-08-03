@@ -1,6 +1,6 @@
-# sys-config
-
 <div align="center">
+
+# sys-config
 
 [![Build status](https://github.com/william-cass-wright/sys-config/workflows/build/badge.svg?branch=main&event=push)](https://github.com/william-cass-wright/sys-config/actions?query=workflow%3Abuild)
 [![Python Version](https://img.shields.io/pypi/pyversions/sys-config.svg)](https://pypi.org/project/sys-config/)
@@ -13,13 +13,35 @@
 [![License](https://img.shields.io/github/license/william-cass-wright/sys-config)](https://github.com/william-cass-wright/sys-config/blob/main/LICENSE)
 ![Coverage Report](assets/images/coverage.svg)
 
-</div>
-
 `sys-config` is a Python package created with [william-cass-wright/cookiecutter-pypackage-slim](https://github.com/william-cass-wright/cookiecutter-pypackage-slim)
 
 </div>
 
+**PROJECT DEVELOPMENT NOTES**
+
 ## Summary
+### how to use
+- command line tool (component of `smgmt`)
+    - transfer AWS Secrets to local (or visversa)
+    - crawl `~/.config` & `~` directories for credentials/configs
+        - systematically extract and transform for command line
+- within CLI project (used to implement `mmgmt`)
+    - init new project after binary install
+    - explicitly call config file (endpoint usage pattern)
+    - function dectorator (on top of command/endpoint)
+    - within context???
+- other types of projects???
+
+### value to include in config file?
+- pypi tokens
+- api keys
+- dev and prod split
+- app specific references within file system
+
+### components
+- file crawler
+- extractor
+- click interface (class inheritance --> factory design pattern?)
 
 ## Usage
 implementation example within [media-mgmt-cli]:
