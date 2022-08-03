@@ -4,16 +4,17 @@ import configparser
 
 
 class ConfigHandler:
-    def __init__(self, project_name="tmp"):
+    def __init__(self, project_name="tmp", verbose=False):
         p = pathlib.Path.home()
         self.home_path = p
         self.config_path = p / ".config" / project_name
         self.config_file_path = self.config_path / "config"
-        self.verbose = False
+        self.verbose = verbose
         self.config = configparser.ConfigParser()
+
+    def check_exists(self):
         if not os.path.isfile(self.config_file_path):
-            print("config file does not exist, run `mmgmt configure`")
-            # exit(1)
+            return "config file does not exist -- run configure endpoint"
         else:
             self.config.read(self.config_file_path)
             if self.verbose:
@@ -91,14 +92,14 @@ class ConfigHandler:
         val = str(val)
         print(key, (n - int(len(key))) * ".", val)
 
-    def get_configs(self):
+    def get_configs_from_file(self):
         if os.path.isfile(self.config_file_path):
             return self.config.defaults()
         else:
             return None
 
+    def get_configs(self, section: str = "DEFAULT"):
+        return self.config.defaults()
+
     def check_config_exists(self):
         return os.path.isfile(self.config_file_path)
-
-
-config_handler = ConfigHandler(project_name="media_mgmt_cli")
