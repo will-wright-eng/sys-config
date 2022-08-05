@@ -7,7 +7,7 @@ config_handler = ConfigHandler(project_name='test')
 
 def test_config_handler():
 	"""test config handler"""
-	assert config_handler.check_exists()  == "config file does not exist -- run configure endpoint"
+	assert config_handler.check_exists_print()  == "config file does not exist -- run configure endpoint"
 
 def test_config_input():
 	"""test config input"""
