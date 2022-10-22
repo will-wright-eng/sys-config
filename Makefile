@@ -1,6 +1,6 @@
 #* Variables
 SHELL := /usr/bin/env bash
-PYTHON := python3
+PYTHON := python
 PYTHONPATH := `pwd`
 
 #* Docker variables
@@ -21,8 +21,7 @@ poetry-remove:
 install:
 	poetry lock -n && poetry export --without-hashes > requirements.txt
 	poetry install -n
-	poetry install -E dev -E test
-#	-poetry run mypy --install-types --non-interactive ./
+	-poetry run mypy --install-types --non-interactive ./
 
 .PHONY: pre-commit-install
 pre-commit-install:
@@ -33,7 +32,7 @@ pre-commit-install:
 codestyle:
 	poetry run pyupgrade --exit-zero-even-if-changed --py39-plus **/*.py
 	poetry run isort --settings-path pyproject.toml ./
-# 	poetry run black --config pyproject.toml ./
+	poetry run black --config pyproject.toml ./
 
 .PHONY: formatting
 formatting: codestyle
@@ -47,7 +46,7 @@ test:
 .PHONY: check-codestyle
 check-codestyle:
 	poetry run isort --diff --check-only --settings-path pyproject.toml ./
-# 	poetry run black --diff --check --config pyproject.toml ./
+	poetry run black --diff --check --config pyproject.toml ./
 	poetry run darglint --verbosity 2 sys_config tests
 
 .PHONY: mypy

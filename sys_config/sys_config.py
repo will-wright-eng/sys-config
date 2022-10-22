@@ -12,8 +12,7 @@ class ConfigHandler:
         self.verbose = False
         self.config = configparser.ConfigParser()
         if not os.path.isfile(self.config_file_path):
-            print("config file does not exist, run `mmgmt configure`")
-            # exit(1)
+            print(f"config file does not exist for {project_name}")
         else:
             self.config.read(self.config_file_path)
             if self.verbose:
@@ -99,6 +98,3 @@ class ConfigHandler:
 
     def check_config_exists(self):
         return os.path.isfile(self.config_file_path)
-
-
-config_handler = ConfigHandler(project_name="media_mgmt_cli")
