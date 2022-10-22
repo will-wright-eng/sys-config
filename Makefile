@@ -29,7 +29,7 @@ poetry-remove: ## poetry-remove
 install: ## install
 	poetry lock -n && poetry export --without-hashes > requirements.txt
 	poetry install -n
-	poetry install -E dev -E test
+	#poetry install -E dev -E test
 	#	-poetry run mypy --install-types --non-interactive ./
 
 # .PHONY: pre-commit-install
