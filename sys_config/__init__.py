@@ -4,6 +4,8 @@
 import sys
 from importlib import metadata as importlib_metadata
 
+import sys_config.sys_config
+
 
 def get_version() -> str:
     try:
