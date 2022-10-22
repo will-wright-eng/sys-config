@@ -5,7 +5,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "sys-config"
-version = "0.1.9"
+version = "0.1.10"
 description = "Awesome `sys-config` is a Python cli/package created with https://github.com/TezRomacH/python-package-template"
 readme = "README.md"
 authors = ["sys-config <hello@sys-config.com>"]
