@@ -7,12 +7,12 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry]
 name = "sys-config"
 version = "0.1.1"
-description = "Awesome `sys-config` is a Python cli/package created with https://github.com/william-cass-wright/cookiecutter-pypackage-slim"
+description = "Awesome `sys-config` is a Python cli/package created with https://github.com/will-wright-eng/cookiecutter-pypackage-slim"
 readme = "README.md"
 authors = ["sys-config <hello@sys-config.com>"]
-license = "Apache Software License 2.0"
-repository = "https://github.com/william-cass-wright/sys-config"
-homepage = "https://github.com/william-cass-wright/sys-config"
+license = "GNU GPL v3.0"
+repository = "https://github.com/will-wright-eng/sys-config"
+homepage = "https://github.com/will-wright-eng/sys-config"
 
 # Keywords description https://python-poetry.org/docs/pyproject/#keywords
 keywords = []  #! Update me
@@ -23,7 +23,7 @@ classifiers = [  #! Update me
   "Intended Audience :: Developers",
   "Operating System :: OS Independent",
   "Topic :: Software Development :: Libraries :: Python Modules",
-  "License :: OSI Approved :: Apache Software License",
+  "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3.9",
 ]
@@ -42,6 +42,7 @@ pytest-html = "^3.1.1"
 virtualenv  = { version = "^20.2.2", optional = true}
 pip  = { version = "^20.3.1", optional = true}
 twine  = { version = "^3.3.0", optional = true}
+mkdocs-autorefs = {version = "^0.2.1", optional = true}
 pre-commit = {version = "^2.12.0", optional = true}
 toml = {version = "^0.10.2", optional = true}
 bump2version = {version = "^1.0.1", optional = true}
@@ -53,7 +54,6 @@ pyupgrade = "^2.29.1"
 safety = "^1.10.3"
 coverage = "^6.1.2"
 coverage-badge = "^1.1.0"
-pytest-xdist = "^2.5.0"
 
 [tool.poetry.extras]
 test = [
