@@ -17,7 +17,7 @@ jobs:
       - name: Publish to pypi
         uses: coveooss/pypi-publish-with-poetry@v1.0.0
         with:
-          project-name: secrules-parsing
+          project-name: sys-config
           pypi-token: ${{ secrets.PYPI_TOKEN }}
           pre-release: ${{ github.ref != 'refs/heads/master' }}
           dry-run: ${{ github.ref != 'refs/heads/master' && github.event.inputs.publish != 'true' }}
