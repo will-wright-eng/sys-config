@@ -14,22 +14,22 @@ version: 2
 #       prefix: ":arrow_up:"
 #     open-pull-requests-limit: 10
 updates:
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-    allow:
-      - dependency-type: "all"
-    commit-message:
-      prefix: ":arrow_up:"
-    open-pull-requests-limit: 10
+- package-ecosystem: "github-actions"
+  directory: "/"
+  schedule:
+    interval: "weekly"
+  allow:
+  - dependency-type: "all"
+  commit-message:
+    prefix: ":arrow_up:"
+  open-pull-requests-limit: 10
 
-  - package-ecosystem: "docker"
-    directory: "/docker"
-    schedule:
-      interval: "weekly"
-    allow:
-      - dependency-type: "all"
-    commit-message:
-      prefix: ":arrow_up:"
-    open-pull-requests-limit: 10
+- package-ecosystem: "docker"
+  directory: "/docker"
+  schedule:
+    interval: "weekly"
+  allow:
+  - dependency-type: "all"
+  commit-message:
+    prefix: ":arrow_up:"
+  open-pull-requests-limit: 10

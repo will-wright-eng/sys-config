@@ -8,7 +8,7 @@ IMAGE := sys_config
 VERSION := latest
 
 .PHONY: $(shell sed -n -e '/^$$/ { n ; /^[^ .\#][^ ]*:/ { s/:.*$$// ; p ; } ; }' $(MAKEFILE_LIST))
- 
+
 .DEFAULT_GOAL := help
 
 help: ## This is help

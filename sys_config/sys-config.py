@@ -101,5 +101,4 @@ class ConfigHandler:
         return os.path.isfile(self.config_file_path)
 
 
-
 config_handler = ConfigHandler(project_name="media_mgmt_cli")

@@ -22,6 +22,7 @@
 ## Summary
 
 ## Usage
+
 implementation example within [media-mgmt-cli]:
 
 ```python
@@ -51,9 +52,11 @@ class AwsStorageMgmt:
 ```
 
 ## Future Work
+
 - setup sys-config
 
 ## Project Examples
+
 - [media-mgmt-cli]
 - [secret-mgmt-cli]
 

@@ -5,5 +5,5 @@ Awesome `sys-config` is a Python cli/package created with https://github.com/wil
 """
 
 __author__ = """Will Wright"""
-__email__ = 'hello@sys-config.com'
-__version__ = '0.1.1'
+__email__ = "hello@sys-config.com"
+__version__ = "0.1.1"
