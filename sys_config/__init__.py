@@ -2,10 +2,9 @@
 """Awesome `sys-config` is a Python cli/package created with https://github.com/TezRomacH/python-package-template"""
 
 __author__ = """Will Wright"""
-__email__ = 'hello@sys-config.com'
-__version__ = '0.1.2'
+__email__ = "hello@sys-config.com"
+__version__ = "0.1.2"
 
-import sys
 from importlib import metadata as importlib_metadata
 
 from sys_config.main import ConfigHandler
