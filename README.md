@@ -22,7 +22,9 @@
 **PROJECT DEVELOPMENT NOTES**
 
 ## Summary
+
 ### how to use
+
 - command line tool (component of `smgmt`)
     - transfer AWS Secrets to local (or visversa)
     - crawl `~/.config` & `~` directories for credentials/configs
@@ -35,12 +37,14 @@
 - other types of projects???
 
 ### value to include in config file?
+
 - pypi tokens
 - api keys
 - dev and prod split
 - app specific references within file system
 
 ### components
+
 - file crawler
 - extractor
 - click interface (class inheritance --> factory design pattern?)
