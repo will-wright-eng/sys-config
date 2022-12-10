@@ -5,8 +5,8 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "sys-config"
-version = "0.1.11"
-description = "Awesome `sys-config` is a Python cli/package created with https://github.com/TezRomacH/python-package-template"
+version = "0.1.2"
+description = "Awesome `sys-config` is a Python cli/package created with https://github.com/william-cass-wright/cookiecutter-pypackage-slim"
 readme = "README.md"
 authors = ["sys-config <hello@sys-config.com>"]
 license = "GNU GPL v3.0"
@@ -25,6 +25,7 @@ classifiers = [  #! Update me
   "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
 ]
 
 
@@ -72,10 +73,11 @@ exclude = '''
 )/
 '''
 
-[tool.isort]
 # https://github.com/timothycrosley/isort/
+[tool.isort]
 py_version = 39
-line_length = 200
+line_length = 120
+length_sort = true
 
 known_typing = ["typing", "types", "typing_extensions", "mypy", "mypy_extensions"]
 sections = ["FUTURE", "TYPING", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
@@ -117,6 +119,7 @@ warn_unused_ignores = true
 # Directories that are not visited by pytest collector:
 norecursedirs =["hooks", "*.egg", ".eggs", "dist", "build", "docs", ".tox", ".git", "__pycache__"]
 doctest_optionflags = ["NUMBER", "NORMALIZE_WHITESPACE", "IGNORE_EXCEPTION_DETAIL"]
+asyncio_mode="auto"
 
 # Extra options:
 addopts = [
