@@ -1,13 +1,8 @@
-name: build
+# name: build
 
-# Controls when the action will run.
-on:
-  # Triggers the workflow on push or pull request events but only for the master branch
-  push:
-    branches: [ master, main ]
-  pull_request:
-    branches: [ master, main ]
+# on: [push]
 
+<<<<<<< HEAD
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
     # inputs:
@@ -25,32 +20,44 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.9", "3.10"]
+=======
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     strategy:
+#       matrix:
+#         python-version: ["3.9"]
 
-    steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4.1.0
-      with:
-        python-version: ${{ matrix.python-version }}
+#     steps:
+#     - uses: actions/checkout@v3
+#     - name: Set up Python ${{ matrix.python-version }}
+#       uses: actions/setup-python@v2.2.2
+#       with:
+#         python-version: ${{ matrix.python-version }}
+>>>>>>> main
 
-    - name: Install poetry
-      run: make poetry-download
+#     - name: Install poetry
+#       run: make poetry-download
 
-    - name: Set up cache
-      uses: actions/cache@v3.0.5
-      with:
-        path: .venv
-        key: venv-${{ matrix.python-version }}-${{ hashFiles('pyproject.toml') }}-${{ hashFiles('poetry.lock') }}
-    - name: Install dependencies
-      run: |
-        poetry config virtualenvs.in-project true
-        poetry install
-        poetry install -E dev -E test
+#     - name: Set up cache
+#       uses: actions/cache@v2.1.6
+#       with:
+#         path: .venv
+#         key: venv-${{ matrix.python-version }}-${{ hashFiles('pyproject.toml') }}-${{ hashFiles('poetry.lock') }}
+#     - name: Install dependencies
+#       run: |
+#         poetry config virtualenvs.in-project true
+#         poetry install
 
-    - name: Run style checks
-      run: |
-        make check-codestyle
+#     # - name: Run style checks
+#     #   run: |
+#     #     make check-codestyle
 
+#     # - name: Run tests
+#     #   run: |
+#     #     make test
+
+<<<<<<< HEAD
     - name: Run tests
       run: |
         make test
@@ -64,3 +71,8 @@ jobs:
   #   - run: |
   #       echo "Log level: ${{ github.event.inputs.logLevel }}"
   #       echo "Tags: ${{ github.event.inputs.tags }}" 
+=======
+#     # - name: Run safety checks
+#     #   run: |
+#     #     make check-safety
+>>>>>>> main

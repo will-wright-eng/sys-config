@@ -2,12 +2,12 @@
 
 default_context:
   project_name: "sys-config"
-  project_description: "Awesome `sys-config` is a Python cli/package created with https://github.com/william-cass-wright/cookiecutter-pypackage-slim"
+  project_description: "Awesome `sys-config` is a Python cli/package created with https://github.com/TezRomacH/python-package-template"
   organization: "sys-config"
-  license: "Apache Software License 2.0"
+  license: "GNU GPL v3.0"
   minimal_python_version: 3.9
-  github_name: "william-cass-wright"
+  github_name: "sys_config"
   email: "hello@sys-config.com"
   version: "0.1.0"
-  line_length: "120"
+  line_length: "200"
   create_example_template: "none"
