@@ -5,13 +5,8 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "sys-config"
-<<<<<<< HEAD
 version = "0.1.2"
 description = "Awesome `sys-config` is a Python cli/package created with https://github.com/william-cass-wright/cookiecutter-pypackage-slim"
-=======
-version = "0.1.11"
-description = "Awesome `sys-config` is a Python cli/package created with https://github.com/TezRomacH/python-package-template"
->>>>>>> main
 readme = "README.md"
 authors = ["sys-config <hello@sys-config.com>"]
 license = "GNU GPL v3.0"
@@ -81,12 +76,8 @@ exclude = '''
 # https://github.com/timothycrosley/isort/
 [tool.isort]
 py_version = 39
-<<<<<<< HEAD
 line_length = 120
 length_sort = true
-=======
-line_length = 200
->>>>>>> main
 
 known_typing = ["typing", "types", "typing_extensions", "mypy", "mypy_extensions"]
 sections = ["FUTURE", "TYPING", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]

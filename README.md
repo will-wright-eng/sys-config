@@ -13,13 +13,9 @@
 [![License](https://img.shields.io/github/license/william-cass-wright/sys-config)](https://github.com/william-cass-wright/sys-config/blob/main/LICENSE)
 ![Coverage Report](assets/images/coverage.svg)
 
-<<<<<<< HEAD
-`sys-config` is a Python package created with [william-cass-wright/cookiecutter-pypackage-slim](https://github.com/william-cass-wright/cookiecutter-pypackage-slim)
-=======
 </div>
 
 `sys-config` is a Python package created with [william-cass-wright/cookiecutter-pypackage-slim](https://github.com/william-cass-wright/cookiecutter-pypackage-slim)... kinda
->>>>>>> main
 
 </div>
 
