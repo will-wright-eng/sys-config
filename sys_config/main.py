@@ -100,8 +100,11 @@ class ConfigHandler:
             self.parser.write(configfile)
 
     # set
-    def set_config_path(self, local_path: str = pathlib.Path(".")):
-        self.config_path = local_path
+    def set_config_path(self, local_path: str = "local"):
+        if local_path == "local":
+            self.config_path = pathlib.Path(".")
+        else:
+            self.config_path = pathlib.Path(local_path)
         self.config_file_path = self.config_path / "config"
 
     def reset_config_path(self):
