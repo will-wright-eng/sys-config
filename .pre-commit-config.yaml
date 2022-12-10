@@ -12,7 +12,6 @@ repos:
   hooks:
   - id: check-yaml
   - id: end-of-file-fixer
-    exclude: LICENSE
   - id: trailing-whitespace
   - id: check-added-large-files
 - repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
@@ -31,17 +30,20 @@ repos:
     - --fix
     verbose: true
     entry: bash -c 'markdownlint "$@" || true' --
+
+# python specific hooks
 - repo: https://github.com/psf/black
   rev: 22.3.0
   hooks:
   - id: black
-  # args: ["-l 120"]
+    args:
+    - "-l 120"
 - repo: https://github.com/pycqa/isort
   rev: 5.10.1
   hooks:
   - id: isort
+    args: ['--order-by-type', '--length-sort', "--profile", "black", "--filter-files"]
     name: isort (python)
-    entry: poetry run isort --settings-path pyproject.toml
   - id: isort
     name: isort (cython)
     types: [cython]
@@ -52,16 +54,10 @@ repos:
   rev: 4.0.1
   hooks:
   - id: flake8
+    args: ['--ignore=E999,W504,W503,E501']
     additional_dependencies:
     - flake8-bugbear
     - flake8-comprehensions
     - flake8-simplify
     verbose: true
     entry: bash -c 'flake8 "$@" || true' --
-- repo: local
-  hooks:
-  - id: pyupgrade
-    name: pyupgrade
-    entry: poetry run pyupgrade --py39-plus
-    types: [python]
-    language: system

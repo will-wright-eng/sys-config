@@ -1,120 +1,110 @@
 import os
+import json
 import pathlib
 import configparser
+
+from typing import Dict, Any
+
 
 
 class ConfigHandler:
     def __init__(self, project_name="tmp", verbose=False):
-        p = pathlib.Path.home()
-        self.home_path = p
-        self.config_path = p / ".config" / project_name
+    	self.project_name = project_name
+        self.home_path = pathlib.Path.home()
+        self.config_path = self.home_path / ".config" / self.project_name
         self.config_file_path = self.config_path / "config"
         self.verbose = verbose
-        self.config = configparser.ConfigParser()
+        self.parser = configparser.ConfigParser()
+        if self.get_config_exists():
+        	print('config file exists, reading contents into parser')
+        	self.config.read(self.config_file_path)
 
-    def check_exists_print(self):
-        if not os.path.isfile(self.config_file_path):
-            print(f"config file does not exist for {project_name}")
-            return "config file does not exist -- run configure endpoint"
-        else:
-            self.config.read(self.config_file_path)
-            if self.verbose:
-                print("-- config file exists --")
-                print(self.print_configs())
+    # CRUD: create config file
+    def crud_create(self):
+    	if self.get_config_exists():
+    		resp = input('overwrite current config? [Y/n]')
+    		if resp.lower() in ('yes', 'y', 'yep', 'true'):
+    			print('overwriting config file')
+    			self.crud_update()
+    		else:
+    			return False
+    	else:
+    		self.create_config_file()
 
-    def check_config_exists_bool(self):
-        return os.path.isfile(self.config_file_path)
+    def create_config_file(self):
+    	if len(self.get_parser_sections()) > 0:
+	        self.write_config_file(mode="w")
+	    else:
+	    	print('no contents to write, use update_parser(dict) method to add contents to parser then write')
 
-    def print_configs(self):
-        print(self.config.defaults())
-        for key, val in self.config.defaults().items():
-            self.print_formatted_configs(key, val)
+    # CRUD: update contents
+    def crud_update(self, config_dict: Dict[str, Any] = None) -> bool:
+    	"""
+		1. update parser with config dict, if used
+		2. if file exists, delete it
+		3. write new config file from parser
+    	"""
+    	if config_dict:
+    		self.update_parser(config_dict)
 
-    def print_formatted_configs(self, key, val, n=20):
-        key = str(key)
-        val = str(val)
-        print(key, (n - int(len(key))) * ".", val)
+    	try:
+    		if self.get_config_exists():
+	    		self.crud_delete_file()
+	    	self.create_config_file()
+	    	return True
+	    except Exception as e:
+	    	print(e)
+	    	return False
 
-    def put_file_and_dir(self):
-        self.config_path.mkdir(parents=True, exist_ok=True)
-        self.config_file_path.touch()
+    def update_parser(self, config_dict):
+    	"""
+		parser = configparser.ConfigParser()
+		parser.read_dict({'section1': {'key1': 'value1',
+		                               'key2': 'value2',
+		                               'key3': 'value3'},
+		                  'section2': {'keyA': 'valueA',
+		                               'keyB': 'valueB',
+		                               'keyC': 'valueC'},
+		                  'section3': {'foo': 'x',
+		                               'bar': 'y',
+		                               'baz': 'z'}
+		})
+    	"""
+    	self.parser.read_dict(config_dict)
 
-    def put_config_to_file(self):
-        # rewrite config file
-        with open(self.config_file_path, "w") as configfile:
-            self.config.write(configfile)
+    # CRUD: delete
+    def crud_delete_file(self):
+    	if self.get_config_exists():
+    		os.remove(self.config_file_path)
+    	else:
+    		print('file does not exist')
 
-    def put_config_file_from_dict(self, config_dict: dict):
-        self.config_file_input(config_dict)
-        self.put_config_to_file()
+    # CRUD: read
+	def crud_read(self):
+		self.read_dict(self.__dict__, self.__class__.__name__)
+		self.read_dict(self.parser._sections, self.parser.__class__.__name__)
 
-    def put_project(self, project_name):
-        self.project_name = project_name
-        self.config_path = self.home_path / ".config" / project_name
-        self.config_file_path = self.config_path / "config"
-        self.config = configparser.ConfigParser()
-        if os.path.isfile(self.config_file_path):
-            self.config.read(self.config_file_path)
-            print("-- config file exists --")
-            print(self.print_configs())
+	def read_dict(self, dict_obj, obj_name: str) -> None:
+		print(f'\n# {obj_name} #')
+		print(json.dumps(dict_obj, indent=4, sort_keys=True))
 
-    def put_configs_to_env(self):
-        # export configs as environment variables
-        for key, val in self.config.defaults().items():
-            if key is not None:
-                os.environ[key.upper()] = val
+    # get
+    def get_config_exists(self):
+    	return os.path.isfile(self.config_file_path)
 
-    def get_configs_from_file(self):
-        if os.path.isfile(self.config_file_path):
-            return self.config.defaults()
-        else:
-            return None
+    def get_parser_sections(self):
+    	return self.parser.sections()
 
-    def get_configs(self, section: str = "DEFAULT"):
-        return self.config.defaults()
+    # put
+    def write_config_file(self, mode: str = "w+"):
+        with open(self.config_file_path, mode) as configfile:
+            self.parser.write(configfile)
 
-    def config_file_input(self, config_dict: dict, section: str = "DEFAULT"):
-        """
-        example:
-        config['DEFAULT'] = {'ServerAliveInterval': '45',
-                      'Compression': 'yes',
-                      'CompressionLevel': '8',}
-        """
-        self.config[section] = config_dict
+    # set
+    def set_config_path(self, local_path: str = pathlib.Path('.')):
+    	self.config_path = local_path
+    	self.config_file_path = self.config_path / "config"
 
-    def list_config_dirs(self):
-        # list directories
-        p = self.home_path / ".config"
-        active = []
-        other = []
-        for x in p.iterdir():
-            if x.is_dir():
-                tmp = x / "config"
-                if os.path.isfile(tmp):
-                    active.append(tmp.resolve())
-                    resp = "config file exists"
-                else:
-                    other.append(x.resolve())
-                    resp = "no config file"
-                self.print_formatted_configs(x, resp, n=45)
-
-        for file_path in active:
-            print("\n-- ", file_path, " --")
-            tmp = configparser.ConfigParser()
-            tmp.read(file_path)
-            for key, val in tmp.defaults().items():
-                self.formatted_print(key, val)
-
-    def formatted_print(self, key, val, n=20):
-        key = str(key)
-        val = str(val)
-        print(key, (n - int(len(key))) * ".", val)
-
-    def get_configs(self):
-        if os.path.isfile(self.config_file_path):
-            return self.config.defaults()
-        else:
-            return None
-
-    def check_config_exists(self):
-        return os.path.isfile(self.config_file_path)
+    def reset_config_path(self):
+    	self.config_path = self.home_path / ".config" / self.project_name
+    	self.config_file_path = self.config_path / "config"
