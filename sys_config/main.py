@@ -20,6 +20,7 @@ class ConfigHandler:
 
     # CRUD: create config file
     def crud_create(self):
+        """ """
         if self.get_config_exists():
             resp = input("overwrite current config? [Y/n]")
             if resp.lower() in ("yes", "y", "yep", "true"):
