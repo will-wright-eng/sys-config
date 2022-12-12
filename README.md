@@ -107,12 +107,28 @@ install:
 2. bump version
 
 ```bash
-poetry version [major, minor, bug]
+poetry version [patch, minor, major, prepatch, preminor, premajor, prerelease, or version number]
 ```
 
 > only updates within pyproject.toml
 
 3. publish
+
+a. trigger pre-commit
+
+```bash
+git add .
+git commit -m "new release"
+```
+
+b. fix issues, commit again, then tag
+
+```bash
+git tag -a v0.2.0 -m "sys-config rewrite"
+git push -u origin publish-branch
+```
+
+c. publish with poetry
 
 ```bash
 poetry publish --dry-run --build
@@ -213,3 +229,11 @@ Type:      method
 ```
 
 > add docstring
+
+```python
+     98 def write_config_file(self, mode: str = "w+"):
+---> 99     with open(self.config_file_path, mode) as configfile:
+    100         self.parser.write(configfile)
+```
+
+> FileNotFoundError: [Errno 2] No such file or directory: '/Users/willcasswrig/.config/tmp/config'
