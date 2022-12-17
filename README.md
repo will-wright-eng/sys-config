@@ -90,3 +90,150 @@ class AwsStorageMgmt:
 
 [media-mgmt-cli]: https://github.com/william-cass-wright/media-mgmt-cli
 [secret-mgmt-cli]: https://github.com/william-cass-wright/secrets-mgmt-cli
+
+## Publishing Notes
+
+1. `make install`
+
+```Makefile
+#* Installation
+.PHONY: install
+install:
+    poetry lock -n && poetry export --without-hashes > requirements.txt
+    poetry install -n
+    -poetry run mypy --install-types --non-interactive ./
+```
+
+2. bump version
+
+```bash
+poetry version [patch, minor, major, prepatch, preminor, premajor, prerelease, or version number]
+```
+
+> only updates within pyproject.toml
+
+3. publish
+
+a. trigger pre-commit
+
+```bash
+git add .
+git commit -m "new release"
+```
+
+b. fix issues, commit again, then tag
+
+```bash
+git tag -a v0.2.0 -m "sys-config rewrite"
+git push -u origin publish-branch
+```
+
+c. publish with poetry
+
+```bash
+poetry publish --dry-run --build
+poetry publish --build
+```
+
+4. test
+
+```bash
+jupyter lab
+python -m pip install sys-config
+```
+
+*REPL*
+
+```python
+import sys_config
+parser = sys_config.ConfigHandler()
+parser.__dict__
+# results
+parser.__dir__()
+# results
+```
+
+```js
+{'project_name': 'tmp',
+ 'home_path': PosixPath('/Users/willcasswrig'),
+ 'config_path': PosixPath('/Users/willcasswrig/.config/tmp'),
+ 'config_file_path': PosixPath('/Users/willcasswrig/.config/tmp/config'),
+ 'verbose': False,
+ 'parser': <configparser.ConfigParser at 0x7f8c224ec430>}
+
+
+['project_name',
+ 'home_path',
+ 'config_path',
+ 'config_file_path',
+ 'verbose',
+ 'parser',
+ '__module__',
+ '__init__',
+ 'crud_create',
+ 'create_config_file',
+ 'crud_update',
+ 'update_parser',
+ 'crud_delete_file',
+ 'crud_read',
+ 'read_dict',
+ 'get_config_exists',
+ 'get_parser_sections',
+ 'write_config_file',
+ 'set_config_path',
+ 'reset_config_path',
+ '__dict__',
+ '__weakref__',
+ '__doc__',
+ '__new__',
+ '__repr__',
+ '__hash__',
+ '__str__',
+ '__getattribute__',
+ '__setattr__',
+ '__delattr__',
+ '__lt__',
+ '__le__',
+ '__eq__',
+ '__ne__',
+ '__gt__',
+ '__ge__',
+ '__reduce_ex__',
+ '__reduce__',
+ '__subclasshook__',
+ '__init_subclass__',
+ '__format__',
+ '__sizeof__',
+ '__dir__',
+ '__class__']
+```
+
+*errors*
+
+`parser.crud_read()`
+
+```python
+     82 def crud_read(self):
+---> 83     self.read_dict(self.__dict__, self.__class__.__name__)
+```
+
+> TypeError: Object of type PosixPath is not JSON serializable
+
+`parser.crud_create()`
+
+```
+Signature: parser.crud_create()
+Docstring: <no docstring>
+File:      ~/miniconda/envs/jl2/lib/python3.10/site-packages/sys_config/main.py
+Type:      method
+```
+
+> add docstring
+
+```python
+     98 def write_config_file(self, mode: str = "w+"):
+---> 99     with open(self.config_file_path, mode) as configfile:
+    100         self.parser.write(configfile)
+```
+
+> FileNotFoundError: [Errno 2] No such file or directory: '/Users/willcasswrig/.config/tmp/config'

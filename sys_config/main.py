@@ -16,10 +16,11 @@ class ConfigHandler:
         self.parser = configparser.ConfigParser()
         if self.get_config_exists():
             print("config file exists, reading contents into parser")
-            self.config.read(self.config_file_path)
+            self.parser.read(self.config_file_path)
 
     # CRUD: create config file
     def crud_create(self):
+        """ """
         if self.get_config_exists():
             resp = input("overwrite current config? [Y/n]")
             if resp.lower() in ("yes", "y", "yep", "true"):
@@ -31,7 +32,8 @@ class ConfigHandler:
             self.create_config_file()
 
     def create_config_file(self):
-        if len(self.get_parser_sections()) > 0:
+        if len(self.get_parser_sections()) + len(self.get_defaults()) > 0:
+            self.put_file_and_dir()
             self.write_config_file(mode="w")
         else:
             print("no contents to write, use update_parser(dict) method to add contents to parser then write")
@@ -81,11 +83,21 @@ class ConfigHandler:
     # CRUD: read
     def crud_read(self):
         self.read_dict(self.__dict__, self.__class__.__name__)
-        self.read_dict(self.parser._sections, self.parser.__class__.__name__)
+        self.read_dict(self._sections, f"{self.parser.__class__.__name__} - defaults")
+        self.read_dict(self.get_defaults(), f"{self.parser.__class__.__name__} - sections")
 
     def read_dict(self, dict_obj, obj_name: str) -> None:
         print(f"\n# {obj_name} #")
-        print(json.dumps(dict_obj, indent=4, sort_keys=True))
+
+        # convert pathlib.PosixPath
+        tmp = dict_obj.copy()
+        for key, val in tmp.items():
+            if isinstance(val, pathlib.PosixPath):
+                tmp.update({key: str(val)})
+            elif not isinstance(val, str):
+                tmp.update({key: "excluded: not a string"})
+
+        print(json.dumps(tmp, indent=4, sort_keys=True))
 
     # get
     def get_config_exists(self):
@@ -94,10 +106,17 @@ class ConfigHandler:
     def get_parser_sections(self):
         return self.parser.sections()
 
+    def get_defaults(self):
+        return self.parser.defaults()
+
     # put
     def write_config_file(self, mode: str = "w+"):
         with open(self.config_file_path, mode) as configfile:
             self.parser.write(configfile)
+
+    def put_file_and_dir(self):
+        self.config_path.mkdir(parents=True, exist_ok=True)
+        self.config_file_path.touch()
 
     # set
     def set_config_path(self, local_path: str = "local"):
